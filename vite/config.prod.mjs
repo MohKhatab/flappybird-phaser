@@ -21,7 +21,7 @@ const phasermsg = () => {
 
 export default defineConfig({
     base: "./",
-    plugins: [react().tailwindcss(), phasermsg()],
+    plugins: [react(), tailwindcss(), phasermsg()],
     logLevel: "warning",
     build: {
         rollupOptions: {
