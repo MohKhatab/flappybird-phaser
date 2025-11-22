@@ -17,7 +17,7 @@ export class FlappyBird extends Scene {
     preload() {
         this.load.image(
             "pipe",
-            "https://placehold.co/50x400/00FF00/000000?text=P"
+            "https://placehold.co/50x400/008000/000000?text=P"
         );
         this.load.image(
             "bird",

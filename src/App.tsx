@@ -39,7 +39,7 @@ function App() {
     function handleScoreSubmit() {
         setSubmitted(true);
         mutate({
-            name,
+            name: name || "Player",
             score,
         });
     }
