@@ -15,14 +15,8 @@ export class FlappyBird extends Scene {
     }
 
     preload() {
-        this.load.image(
-            "pipe",
-            "https://placehold.co/50x400/008000/000000?text=P"
-        );
-        this.load.image(
-            "bird",
-            "https://placehold.co/60x40/FFD700/000000?text=B"
-        );
+        this.load.image("pipe", "pipe.png");
+        this.load.image("bird", "bird.png");
     }
 
     create() {
@@ -37,6 +31,7 @@ export class FlappyBird extends Scene {
         this.bird.body.setGravityY(10);
         this.bird.setCollideWorldBounds(true);
         this.bird.body.onWorldBounds = true;
+        this.bird.setScale(0.1);
 
         // Pipes
         this.pipeGroup = this.physics.add.group({
@@ -100,15 +95,15 @@ export class FlappyBird extends Scene {
         );
 
         const topPipeLength = center - this.gap / 2;
-        const bottomPipeLength = this.scale.height - (center + this.gap / 2);
+        const bottomPipeLength = center + this.gap / 2;
 
         const topPipe = this.pipeGroup.create(
             this.scale.width,
-            topPipeLength / 2,
+            topPipeLength,
             "pipe"
         );
         topPipe.setFlipY(true);
-        topPipe.setDisplaySize(topPipe.width, topPipeLength);
+        topPipe.setOrigin(0.5, 1);
 
         // Scoreline
         const scoreLine = this.add.rectangle(
@@ -119,6 +114,14 @@ export class FlappyBird extends Scene {
             0xffffff,
             0
         );
+
+        const bottomPipe = this.pipeGroup.create(
+            this.scale.width,
+            bottomPipeLength,
+            "pipe"
+        );
+        bottomPipe.setOrigin(0.5, 0);
+
         this.physics.world.enable(scoreLine);
         (scoreLine.body as Phaser.Physics.Arcade.Body).allowGravity = false;
         (scoreLine.body as Phaser.Physics.Arcade.Body).immovable = true;
@@ -132,13 +135,6 @@ export class FlappyBird extends Scene {
             undefined,
             this
         );
-
-        const bottomPipe = this.pipeGroup.create(
-            this.scale.width,
-            center + this.gap / 2 + bottomPipeLength / 2,
-            "pipe"
-        );
-        bottomPipe.setDisplaySize(bottomPipe.width, bottomPipeLength);
 
         topPipe.setVelocityX(-200);
         bottomPipe.setVelocityX(-200);
